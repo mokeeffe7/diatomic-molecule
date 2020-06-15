@@ -1,10 +1,10 @@
 spec:
-  templates
+  templates:
 
-  # Create a diatomic molecule
+  # Create a diatomic moleucle
   - name: create-diatomic-molecule
     parent: generic-task
-    inputs: 
+    inputs:
       parameters:
       - name: species1
       - name: species2
@@ -18,15 +18,14 @@ spec:
           data: |
             import json
             from diatomicmolecule import create_diatomic_molecule_geometry
-            geometry = create_diatomic_molecule_geometry(
-                '{{inputs.parameters.species1}}', 
-                '{{inputs.parameters.species2}}', 
-                {{inputs.parameters.bond-length}})
+            geometry = create_diatomic_molecule_geometry('{{inputs.parameters.species1}}',
+                                                         '{{inputs.parameters.species2}}',
+                                                         {{inputs.parameters.bond-length}})
+
             geometry['schema'] = "molecular_geometry"
             with open('molecule.json', 'w') as f:
-              f.write(json.dumps(geometry))]
+              f.write(json.dumps(geometry))
     outputs:
       artifacts:
       - name: geometry
         path: /app/molecule.json
-
